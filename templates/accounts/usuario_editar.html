@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">Editar usuario {{ usuario.username }}</div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    <div class="d-flex gap-2 align-items-center">
+                        <button class="btn btn-primary" type="submit">Guardar</button>
+                        <a class="btn btn-outline-secondary" href="{% url 'usuarios_lista' %}">Volver</a>
+                        <a class="btn btn-link ms-auto" href="{% url 'usuario_reset_password' usuario.pk %}">Establecer contraseña</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

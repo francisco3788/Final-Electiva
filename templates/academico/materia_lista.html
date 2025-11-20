@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Materias{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 fw-bold text-primary">Materias</h1>
+        <p class="text-muted mb-0">Listado de materias disponibles.</p>
+    </div>
+    {% if user.role in 'ADMIN,DOCENTE' %}
+    <a class="btn btn-primary" href="{% url 'materia_crear' %}">Nueva materia</a>
+    {% endif %}
+</div>
+<div class="card shadow-sm">
+    <div class="card-body table-responsive">
+        <table class="table align-middle table-hover">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Curso</th>
+                    <th>Intensidad</th>
+                    <th class="text-end">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for materia in materias %}
+                <tr>
+                    <td>{{ materia.codigo }}</td>
+                    <td>{{ materia.nombre }}</td>
+                    <td>{{ materia.curso }}</td>
+                    <td>{{ materia.intensidad_horaria }}h</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'materia_detalle' materia.pk %}">Ver</a>
+                        {% if user.role in 'ADMIN,DOCENTE' %}
+                        <a class="btn btn-sm btn-outline-primary" href="{% url 'materia_editar' materia.pk %}">Editar</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'materia_eliminar' materia.pk %}">Eliminar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="text-center text-muted py-4">Sin materias.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

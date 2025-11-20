@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Buscador</h3>
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="get">
+            <div class="input-group">
+                {{ form.query }}
+                <button class="btn btn-primary" type="submit">Buscar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% if estudiantes is not None %}
+<div class="row">
+    <div class="col-md-6">
+        <h5>Estudiantes</h5>
+        <table class="table table-sm">
+            <thead><tr><th>Nombre</th><th>Código</th></tr></thead>
+            <tbody>
+            {% for est in estudiantes %}
+                <tr>
+                    <td>{{ est.get_full_name }}</td>
+                    <td>{{ est.perfil_estudiante.codigo_estudiante }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="2">Sin resultados.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h5>Cursos</h5>
+        <table class="table table-sm">
+            <thead><tr><th>Curso</th><th>Periodo</th></tr></thead>
+            <tbody>
+            {% for curso in cursos %}
+                <tr>
+                    <td>{{ curso.nombre }}</td>
+                    <td>{{ curso.periodo_academico }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="2">Sin resultados.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

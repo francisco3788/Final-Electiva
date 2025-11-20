@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Detalle de materia</h3>
+<div class="card">
+  <div class="card-body">
+    <p><strong>Nombre:</strong> {{ materia.nombre }}</p>
+    <p><strong>Código:</strong> {{ materia.codigo }}</p>
+    <p><strong>Curso:</strong> {{ materia.curso }}</p>
+    <p><strong>Intensidad horaria:</strong> {{ materia.intensidad_horaria }} horas</p>
+  </div>
+</div>
+<a class="btn btn-secondary mt-3" href="{% url 'materia_lista' %}">Volver</a>
+{% endblock %}

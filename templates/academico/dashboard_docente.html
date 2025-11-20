@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Panel docente{% endblock %}
+{% block content %}
+<section class="mb-4">
+    <h1 class="h3 fw-bold text-primary mb-4">Panel del docente</h1>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body">
+                    <div class="stat-icon bg-primary-subtle text-primary mb-3">
+                        <i class="bi bi-people fs-4"></i>
+                    </div>
+                    <p class="text-muted text-uppercase small mb-1">Estudiantes vinculados</p>
+                    <h2 class="display-6 fw-bold">{{ total_estudiantes }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body">
+                    <div class="stat-icon bg-success-subtle text-success mb-3">
+                        <i class="bi bi-diagram-3 fs-4"></i>
+                    </div>
+                    <p class="text-muted text-uppercase small mb-1">Mis cursos</p>
+                    <h2 class="display-6 fw-bold">{{ total_cursos }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body">
+                    <div class="stat-icon bg-warning-subtle text-warning mb-3">
+                        <i class="bi bi-journal-text fs-4"></i>
+                    </div>
+                    <p class="text-muted text-uppercase small mb-1">Materias asignadas</p>
+                    <h2 class="display-6 fw-bold">{{ total_materias }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "academico/dashboard_charts.html" %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const labelsProm = {{ chart_labels|safe }};
+    const dataProm = {{ chart_data|safe }};
+    new Chart(document.getElementById('chartPromedio'), {
+        type: 'bar',
+        data: {labels: labelsProm, datasets: [{label: 'Promedio', data: dataProm, backgroundColor: '#2563eb'}]},
+        options: {scales: {y: {beginAtZero: true, max: 5}}}
+    });
+
+    const labelsAsis = {{ asistencia_labels|safe }};
+    const dataAsis = {{ asistencia_data|safe }};
+    new Chart(document.getElementById('chartAsistencia'), {
+        type: 'line',
+        data: {labels: labelsAsis, datasets: [{label: 'Asistencia %', data: dataAsis, borderColor: '#10b981', tension: 0.3}]},
+        options: {scales: {y: {beginAtZero: true, max: 100}}}
+    });
+</script>
+{% endblock %}

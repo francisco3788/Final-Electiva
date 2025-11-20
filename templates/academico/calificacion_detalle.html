@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Detalle de calificación</h3>
+<div class="card">
+  <div class="card-body">
+    <p><strong>Estudiante:</strong> {{ calificacion.estudiante.get_full_name }} ({{ calificacion.estudiante.username }})</p>
+    <p><strong>Materia:</strong> {{ calificacion.materia.nombre }}</p>
+    <p><strong>Curso:</strong> {{ calificacion.materia.curso }}</p>
+    <p><strong>Nota:</strong> {{ calificacion.nota }}</p>
+    <p><strong>Tipo:</strong> {{ calificacion.get_tipo_evaluacion_display }}</p>
+    <p><strong>Fecha:</strong> {{ calificacion.fecha }}</p>
+    <p><strong>Observaciones:</strong> {{ calificacion.observaciones|default:"N/A" }}</p>
+  </div>
+</div>
+<a class="btn btn-secondary mt-3" href="{% url 'calificacion_lista' %}">Volver</a>
+{% endblock %}

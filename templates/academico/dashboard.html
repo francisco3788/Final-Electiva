@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-4">Dashboard</h3>
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card text-bg-primary">
+            <div class="card-body">
+                <h6 class="card-title">Estudiantes activos</h6>
+                <p class="display-6">{{ total_estudiantes }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-bg-success">
+            <div class="card-body">
+                <h6 class="card-title">Cursos</h6>
+                <p class="display-6">{{ total_cursos }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-bg-info">
+            <div class="card-body">
+                <h6 class="card-title">Materias</h6>
+                <p class="display-6">{{ total_materias }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Promedio por materia</div>
+            <div class="card-body">
+                <canvas id="chartPromedio"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Asistencia mensual (%)</div>
+            <div class="card-body">
+                <canvas id="chartAsistencia"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const labelsProm = {{ chart_labels|safe }};
+    const dataProm = {{ chart_data|safe }};
+    new Chart(document.getElementById('chartPromedio'), {
+        type: 'bar',
+        data: {labels: labelsProm, datasets: [{label: 'Promedio', data: dataProm, backgroundColor: '#0d6efd'}]},
+        options: {scales: {y: {beginAtZero: true, max: 5}}}
+    });
+
+    const labelsAsis = {{ asistencia_labels|safe }};
+    const dataAsis = {{ asistencia_data|safe }};
+    new Chart(document.getElementById('chartAsistencia'), {
+        type: 'line',
+        data: {labels: labelsAsis, datasets: [{label: 'Asistencia %', data: dataAsis, borderColor: '#198754', tension: 0.3}]},
+        options: {scales: {y: {beginAtZero: true, max: 100}}}
+    });
+</script>
+{% endblock %}

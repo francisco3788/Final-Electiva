@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Reportes y exportaciones</h3>
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">PDF</div>
+            <div class="card-body">
+                {% if user.role == 'ESTUDIANTE' %}
+                    <p><a class="btn btn-outline-primary" href="{% url 'reporte_boletin_propio' %}">Mi boletín PDF</a></p>
+                {% endif %}
+                {% if user.role != 'ESTUDIANTE' %}
+                    <p>Actas por curso:</p>
+                    <ul>
+                        {% for curso in cursos %}
+                        <li>{{ curso.nombre }} - <a href="{% url 'reporte_acta_curso_pdf' curso.pk %}">Descargar</a></li>
+                        {% empty %}<li>No hay cursos disponibles.</li>{% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Excel</div>
+            <div class="card-body">
+                {% if user.role != 'ESTUDIANTE' %}
+                    <p>Listado de estudiantes por curso:</p>
+                    <ul>
+                        {% for curso in cursos %}
+                        <li>{{ curso.nombre }} - <a href="{% url 'exportar_estudiantes_excel' curso.pk %}">Descargar Excel</a></li>
+                        {% empty %}<li>No hay cursos.</li>{% endfor %}
+                    </ul>
+                {% endif %}
+                <p><a class="btn btn-outline-success" href="{% url 'exportar_calificaciones_excel' %}">Calificaciones Excel</a></p>
+                <form method="get" action="{% url 'exportar_asistencias_excel' %}">
+                    <div class="row g-2">
+                        <div class="col">
+                            <label class="form-label">Desde</label>
+                            <input type="date" name="desde" class="form-control">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Hasta</label>
+                            <input type="date" name="hasta" class="form-control">
+                        </div>
+                        <div class="col d-flex align-items-end">
+                            <button class="btn btn-outline-success" type="submit">Asistencia Excel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

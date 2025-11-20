@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Detalle de matrícula</h3>
+<div class="card">
+  <div class="card-body">
+    <p><strong>Estudiante:</strong> {{ matricula.estudiante.get_full_name }} ({{ matricula.estudiante.username }})</p>
+    <p><strong>Curso:</strong> {{ matricula.curso }}</p>
+    <p><strong>Fecha:</strong> {{ matricula.fecha_matricula }}</p>
+  </div>
+</div>
+<a class="btn btn-secondary mt-3" href="{% url 'matricula_lista' %}">Volver</a>
+{% endblock %}
