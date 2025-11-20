@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
+{% block title %}Detalle de matrícula{% endblock %}
 {% block content %}
-<h3>Detalle de matrícula</h3>
-<div class="card">
-  <div class="card-body">
-    <p><strong>Estudiante:</strong> {{ matricula.estudiante.get_full_name }} ({{ matricula.estudiante.username }})</p>
-    <p><strong>Curso:</strong> {{ matricula.curso }}</p>
-    <p><strong>Fecha:</strong> {{ matricula.fecha_matricula }}</p>
-  </div>
+<div class="card shadow-sm">
+    <div class="card-header bg-white border-0">
+        <h1 class="h4 mb-0">Detalle de la matrícula</h1>
+    </div>
+    <div class="card-body">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <p class="text-muted text-uppercase small mb-1">Estudiante</p>
+                <h5>{{ matricula.estudiante.get_full_name }} ({{ matricula.estudiante.username }})</h5>
+            </div>
+            <div class="col-md-6">
+                <p class="text-muted text-uppercase small mb-1">Curso</p>
+                <h5>{{ matricula.curso }}</h5>
+            </div>
+            <div class="col-md-4">
+                <p class="text-muted text-uppercase small mb-1">Fecha</p>
+                <h5>{{ matricula.fecha_matricula }}</h5>
+            </div>
+        </div>
+    </div>
 </div>
-<a class="btn btn-secondary mt-3" href="{% url 'matricula_lista' %}">Volver</a>
+<a class="btn btn-outline-secondary mt-3" href="{% url 'matricula_lista' %}">Volver</a>
 {% endblock %}

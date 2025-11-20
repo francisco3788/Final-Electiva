@@ -1,13 +1,30 @@
 {% extends 'base.html' %}
+{% block title %}Detalle de materia{% endblock %}
 {% block content %}
-<h3>Detalle de materia</h3>
-<div class="card">
-  <div class="card-body">
-    <p><strong>Nombre:</strong> {{ materia.nombre }}</p>
-    <p><strong>Código:</strong> {{ materia.codigo }}</p>
-    <p><strong>Curso:</strong> {{ materia.curso }}</p>
-    <p><strong>Intensidad horaria:</strong> {{ materia.intensidad_horaria }} horas</p>
-  </div>
+<div class="card shadow-sm">
+    <div class="card-header bg-white border-0">
+        <h1 class="h4 mb-0">Detalle de la materia</h1>
+    </div>
+    <div class="card-body">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <p class="text-muted text-uppercase small mb-1">Nombre</p>
+                <h5>{{ materia.nombre }}</h5>
+            </div>
+            <div class="col-md-3">
+                <p class="text-muted text-uppercase small mb-1">Código</p>
+                <h5>{{ materia.codigo }}</h5>
+            </div>
+            <div class="col-md-3">
+                <p class="text-muted text-uppercase small mb-1">Intensidad horaria</p>
+                <h5>{{ materia.intensidad_horaria }} horas</h5>
+            </div>
+            <div class="col-md-6">
+                <p class="text-muted text-uppercase small mb-1">Curso</p>
+                <h5>{{ materia.curso }}</h5>
+            </div>
+        </div>
+    </div>
 </div>
-<a class="btn btn-secondary mt-3" href="{% url 'materia_lista' %}">Volver</a>
+<a class="btn btn-outline-secondary mt-3" href="{% url 'materia_lista' %}">Volver</a>
 {% endblock %}

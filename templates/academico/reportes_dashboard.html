@@ -1,50 +1,60 @@
 {% extends 'base.html' %}
+{% block title %}Reportes y exportaciones{% endblock %}
 {% block content %}
-<h3>Reportes y exportaciones</h3>
-<div class="row g-3">
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 fw-bold text-primary">Reportes y exportaciones</h1>
+        <p class="text-muted mb-0">Descarga boletines, actas y listados en PDF o Excel.</p>
+    </div>
+</div>
+<div class="row g-4">
     <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">PDF</div>
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-white border-0">
+                <h2 class="h6 text-uppercase text-muted mb-0">PDF</h2>
+            </div>
             <div class="card-body">
                 {% if user.role == 'ESTUDIANTE' %}
                     <p><a class="btn btn-outline-primary" href="{% url 'reporte_boletin_propio' %}">Mi boletín PDF</a></p>
                 {% endif %}
                 {% if user.role != 'ESTUDIANTE' %}
-                    <p>Actas por curso:</p>
-                    <ul>
+                    <p class="fw-semibold">Actas por curso:</p>
+                    <ul class="list-unstyled">
                         {% for curso in cursos %}
-                        <li>{{ curso.nombre }} - <a href="{% url 'reporte_acta_curso_pdf' curso.pk %}">Descargar</a></li>
-                        {% empty %}<li>No hay cursos disponibles.</li>{% endfor %}
+                        <li class="mb-2">• {{ curso.nombre }} — <a href="{% url 'reporte_acta_curso_pdf' curso.pk %}">Descargar</a></li>
+                        {% empty %}<li class="text-muted">No hay cursos disponibles.</li>{% endfor %}
                     </ul>
                 {% endif %}
             </div>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">Excel</div>
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-white border-0">
+                <h2 class="h6 text-uppercase text-muted mb-0">Excel</h2>
+            </div>
             <div class="card-body">
                 {% if user.role != 'ESTUDIANTE' %}
-                    <p>Listado de estudiantes por curso:</p>
-                    <ul>
+                    <p class="fw-semibold">Listado de estudiantes por curso:</p>
+                    <ul class="list-unstyled">
                         {% for curso in cursos %}
-                        <li>{{ curso.nombre }} - <a href="{% url 'exportar_estudiantes_excel' curso.pk %}">Descargar Excel</a></li>
-                        {% empty %}<li>No hay cursos.</li>{% endfor %}
+                        <li class="mb-2">• {{ curso.nombre }} — <a href="{% url 'exportar_estudiantes_excel' curso.pk %}">Descargar Excel</a></li>
+                        {% empty %}<li class="text-muted">No hay cursos.</li>{% endfor %}
                     </ul>
                 {% endif %}
                 <p><a class="btn btn-outline-success" href="{% url 'exportar_calificaciones_excel' %}">Calificaciones Excel</a></p>
                 <form method="get" action="{% url 'exportar_asistencias_excel' %}">
                     <div class="row g-2">
                         <div class="col">
-                            <label class="form-label">Desde</label>
+                            <label class="form-label text-uppercase small">Desde</label>
                             <input type="date" name="desde" class="form-control">
                         </div>
                         <div class="col">
-                            <label class="form-label">Hasta</label>
+                            <label class="form-label text-uppercase small">Hasta</label>
                             <input type="date" name="hasta" class="form-control">
                         </div>
                         <div class="col d-flex align-items-end">
-                            <button class="btn btn-outline-success" type="submit">Asistencia Excel</button>
+                            <button class="btn btn-outline-success w-100" type="submit">Asistencia Excel</button>
                         </div>
                     </div>
                 </form>

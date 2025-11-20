@@ -1,16 +1,42 @@
 {% extends 'base.html' %}
+{% block title %}Detalle de calificación{% endblock %}
 {% block content %}
-<h3>Detalle de calificación</h3>
-<div class="card">
-  <div class="card-body">
-    <p><strong>Estudiante:</strong> {{ calificacion.estudiante.get_full_name }} ({{ calificacion.estudiante.username }})</p>
-    <p><strong>Materia:</strong> {{ calificacion.materia.nombre }}</p>
-    <p><strong>Curso:</strong> {{ calificacion.materia.curso }}</p>
-    <p><strong>Nota:</strong> {{ calificacion.nota }}</p>
-    <p><strong>Tipo:</strong> {{ calificacion.get_tipo_evaluacion_display }}</p>
-    <p><strong>Fecha:</strong> {{ calificacion.fecha }}</p>
-    <p><strong>Observaciones:</strong> {{ calificacion.observaciones|default:"N/A" }}</p>
-  </div>
+<div class="card shadow-sm">
+    <div class="card-header bg-white border-0">
+        <h1 class="h4 mb-0">Detalle de la calificación</h1>
+    </div>
+    <div class="card-body">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <p class="text-muted text-uppercase small mb-1">Estudiante</p>
+                <h5>{{ calificacion.estudiante.get_full_name }} ({{ calificacion.estudiante.username }})</h5>
+            </div>
+            <div class="col-md-6">
+                <p class="text-muted text-uppercase small mb-1">Materia</p>
+                <h5>{{ calificacion.materia.nombre }}</h5>
+            </div>
+            <div class="col-md-4">
+                <p class="text-muted text-uppercase small mb-1">Curso</p>
+                <h5>{{ calificacion.materia.curso }}</h5>
+            </div>
+            <div class="col-md-4">
+                <p class="text-muted text-uppercase small mb-1">Nota</p>
+                <h5>{{ calificacion.nota }}</h5>
+            </div>
+            <div class="col-md-4">
+                <p class="text-muted text-uppercase small mb-1">Tipo</p>
+                <h5>{{ calificacion.get_tipo_evaluacion_display }}</h5>
+            </div>
+            <div class="col-md-4">
+                <p class="text-muted text-uppercase small mb-1">Fecha</p>
+                <h5>{{ calificacion.fecha }}</h5>
+            </div>
+            <div class="col-md-12">
+                <p class="text-muted text-uppercase small mb-1">Observaciones</p>
+                <h5>{{ calificacion.observaciones|default:"N/A" }}</h5>
+            </div>
+        </div>
+    </div>
 </div>
-<a class="btn btn-secondary mt-3" href="{% url 'calificacion_lista' %}">Volver</a>
+<a class="btn btn-outline-secondary mt-3" href="{% url 'calificacion_lista' %}">Volver</a>
 {% endblock %}
